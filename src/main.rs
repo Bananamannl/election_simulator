@@ -1,11 +1,11 @@
-struct Party_Seats_Percentage {
+struct PartySeatsPercentage {
     aup: f64,
     op: f64,
     xrb: f64,
     ssm: f64
 }
 
-struct Party_seats_amount {
+struct PartySeatsAmount {
     aup: f64,
     op: f64,
     xrb: f64,
@@ -15,14 +15,14 @@ struct Party_seats_amount {
 fn main() {
     let mut seats: f64 = 400.0; //this is equal to the 200 + pops*10
     let mut sectors: f64 = 20.0; //this is equal to the size of all planets combined
-    let seats_percentage = Party_Seats_Percentage {
+    let seats_percentage = PartySeatsPercentage {
         aup: percentage_of_seats(sectors, 8.0),
         op: percentage_of_seats(sectors, 4.0),
         xrb: percentage_of_seats(sectors, 6.0),
         ssm: percentage_of_seats(sectors, 2.0),
     };
 
-    let seats_amount = Party_seats_amount {
+    let seats_amount = PartySeatsAmount {
         aup: seats*seats_percentage.aup,
         op: seats*seats_percentage.op,
         xrb: seats*seats_percentage.xrb,
