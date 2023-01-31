@@ -12,14 +12,33 @@ struct PartySeatsAmount {
     ssm: f64
 }
 
+struct PartySectorAmount {
+    aup: f64,
+    op: f64,
+    xrb: f64,
+    ssm: f64
+}
+
 fn main() {
-    let mut seats: f64 = 400.0; //this is equal to the 200 + pops*10
-    let mut sectors: f64 = 20.0; //this is equal to the size of all planets combined
+    //This calculates the amount of seats in parlement based on the amount of pops in the empire
+    let pops: f64 = 20.0; //amount of pops in the empire
+    let seats: f64 = 200.0 + pops*10.0; //this is equal to the 200 + pops*10
+
+    //This takes the amount of sectors per party and calculates the total amount of sectors to devide by
+    let sectors_party = PartySectorAmount {
+        aup: 8.0,
+        op: 4.0,
+        xrb: 6.0,
+        ssm: 2.0
+    };
+    let total_sectors: f64 = sectors_party.aup + sectors_party.op  + sectors_party.xrb + sectors_party.ssm; //this is equal to the size of all planets + "phantom sectors" combined
+
+    // This calculates the percentage of seats the parties get from the amount of sectors they have
     let seats_percentage = PartySeatsPercentage {
-        aup: percentage_of_seats(sectors, 8.0),
-        op: percentage_of_seats(sectors, 4.0),
-        xrb: percentage_of_seats(sectors, 6.0),
-        ssm: percentage_of_seats(sectors, 2.0),
+        aup: percentage_of_seats(total_sectors, sectors_party.aup),
+        op: percentage_of_seats(total_sectors, sectors_party.op),
+        xrb: percentage_of_seats(total_sectors, sectors_party.xrb),
+        ssm: percentage_of_seats(total_sectors, sectors_party.ssm),
     };
 
     let seats_amount = PartySeatsAmount {
