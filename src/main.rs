@@ -1,3 +1,6 @@
+extern crate rand; 
+use rand::Rng;
+
 struct PartySeatsPercentage {
     aup: f64,
     op: f64,
@@ -20,16 +23,19 @@ struct PartySectorAmount {
 }
 
 fn main() {
+    //This is the rng valuable
+    let mut rng = rand::thread_rng();
+
     //This calculates the amount of seats in parlement based on the amount of pops in the empire
     let pops: f64 = 20.0; //amount of pops in the empire
     let seats: f64 = 200.0 + pops*10.0; //this is equal to the 200 + pops*10
 
     //This takes the amount of sectors per party and calculates the total amount of sectors to devide by
     let sectors_party = PartySectorAmount {
-        aup: 8.0,
-        op: 4.0,
-        xrb: 6.0,
-        ssm: 2.0
+        aup: 8.0 * rng.gen_range(1.0..1.2),
+        op: 4.0 * rng.gen_range(1.0..1.2),
+        xrb: 6.0 * rng.gen_range(1.0..1.2),
+        ssm: 2.0 * rng.gen_range(1.0..1.2)
     };
     let total_sectors: f64 = sectors_party.aup + sectors_party.op  + sectors_party.xrb + sectors_party.ssm; //this is equal to the size of all planets + "phantom sectors" combined
 
@@ -56,7 +62,7 @@ fn main() {
     
     The percentage of seats won by the Xeno Representation Bloc is {}% and the amount of seats in parlement is {}
     
-    The percentage of seats won by the Steadfast Stones movement is {}% and the amount of seats in parlement is {}", seats_percentage.aup*100.0, seats_amount.aup, seats_percentage.op*100.0, seats_amount.op, seats_percentage.xrb*100.0, seats_amount.xrb, seats_percentage.ssm*100.0, seats_amount.ssm);
+    The percentage of seats won by the Steadfast Stones movement is {}% and the amount of seats in parlement is {}", (seats_percentage.aup*100.0).round(), seats_amount.aup.round(), (seats_percentage.op*100.0).round(), seats_amount.op.round(), (seats_percentage.xrb*100.0).round(), seats_amount.xrb.round(), (seats_percentage.ssm*100.0).round(), seats_amount.ssm.round());
     
 
 }
